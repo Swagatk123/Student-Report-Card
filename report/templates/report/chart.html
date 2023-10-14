@@ -1,0 +1,10 @@
+{% extends "report/base.html" %}
+
+{% load matplotlib %}
+
+{% block content %}
+<div class="container">
+    <h2>Pass/Fail Chart</h2>
+    {% matplotlib "pass_fail_chart.png" %}
+</div>
+{% endblock %}

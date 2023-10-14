@@ -1,0 +1,27 @@
+{% extends "report/base.html" %}
+
+{% block main %}
+<div class="container mt-5 border">
+    {% if queryset.first.student.StudentReportCard.first.student_rank == 1  %}<h2 class="my-3">Rank: {{queryset.first.student.StudentReportCard.first.student_rank}} 🥇</h2>
+    {% elif queryset.first.student.StudentReportCard.first.student_rank == 2 %}<h2 class="my-3">Rank: {{queryset.first.student.StudentReportCard.first.student_rank}} 🥈</h2>
+    {% elif queryset.first.student.StudentReportCard.first.student_rank == 3 %}<h2 class="my-3">Rank: {{queryset.first.student.StudentReportCard.first.student_rank}} 🥉</h2>
+    {% else %}
+    <h2 class="my-3">Rank: {{queryset.first.student.StudentReportCard.first.student_rank}} </h2>
+    {% endif %}
+    <h4 class="mb-3">Total: {{total_marks.total_marks}}</h4>
+    <h4>Name: {{queryset.first.student}}</h4>
+    <h4>Department: {{queryset.first.student.deparment}}</h4>
+<table class="table table-striped mt-5 border">
+<tbody>
+    {% for marks in queryset %} 
+    <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{marks.subject.subject_name}}</td>
+        <td>{{marks.marks}}</td>
+
+    </tr>
+    {% endfor %}
+
+</tbody>
+</div>
+{% endblock main %}

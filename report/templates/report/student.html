@@ -1,0 +1,59 @@
+{% extends "report/base.html" %}
+{% block navbar %}
+<nav class="navbar  bg-body-tertiary shadow  text-white">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url "home" %}">Student Result </a>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-success" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+{% endblock navbar %}
+{% block main %}
+<div class="container mt-5 border">
+<table class="table table-striped mt-5 border">
+<thead>
+    <tr>    
+        <th scope="col">Student id</th>
+        <th scope="col">Rank</th>
+        <th scope="col">Deparment</th>
+        <th scope="col">Student Name</th>
+        <th scope="col">Student Email</th>
+        <th scope="col">Student Age</th>
+
+    </tr>
+</thead>
+<tbody>
+    {% for stu in queryset %}
+    <tr>
+        <td><a href="{% url 'see_marks'  stu.student_id %}">{{stu.student_id}}</a></td>
+        <td>{{stu.StudentReportCard.first.student_rank}}</td>
+        <td>{{stu.deparment}}</td>
+        <td>{{stu.student_name}}</td>
+        <td>{{stu.student_email}}</td>
+        <td>{{stu.student_age}}</td>
+    </tr>
+    {% endfor %}
+
+</tbody>
+</div>
+<nav aria-label="..." class="d-inline">
+    <ul class="pagination">
+           
+            {% if queryset.has_previous %}
+                <li class="page-item"><a href="?page=1" class="page-link">&laquo; first</a></li>
+                <li class="page-item"><a href="?page={{ queryset.previous_page_number }}" class="page-link">previous</a></li>
+            {% endif %}
+    
+            <span class="current" class="page-item">
+                Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}.
+            </span>
+    
+            {% if queryset.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ queryset.next_page_number }}">next</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ queryset.paginator.num_pages }}">last &raquo;</a></li>
+            {% endif %}
+    </ul>
+</nav>
+{% endblock main %}
